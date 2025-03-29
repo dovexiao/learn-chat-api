@@ -1,0 +1,26 @@
+# 依赖目录
+node_modules/
+
+# 环境变量文件（避免泄露敏感信息）
+.env
+.env.local
+.env*.local
+
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 构建输出目录
+dist/
+build/
+coverage/
+
+# 系统文件
+.DS_Store
+.thumbsdb
+
+# IDE 配置文件（如 VSCode、JetBrains 系列）
+.idea/
+.vscode/
+*.swp
