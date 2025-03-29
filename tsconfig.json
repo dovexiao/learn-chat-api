@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es6",
+      "dom" // 添加 "dom" 以便在浏览器环境相关代码中使用一些 DOM 类型定义，如果你的项目是纯后端则可根据情况决定是否保留
+    ],
+    "target": "es6", // 建议升级到 ES6 及以上，因为现在很多新特性都基于 ES6+，并且 TypeORM 等库也更适配高版本
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "strict": true, // 开启严格模式，有助于发现更多潜在的类型错误
+    "esModuleInterop": true, // 使 CommonJS 和 ES 模块之间的互操作性更好
+    "skipLibCheck": true, // 跳过类型声明文件的检查，提高编译速度，可根据需要关闭
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["node_modules/@types"], // 指定类型声明文件的根目录
+    "types": [
+      "express", // 在这里添加你使用的库的类型声明包，比如 express，还可以添加其他的如 mysql2 等
+    ]
+  },
+  "include": ["src/**/*.ts"], // 包含需要编译的 TypeScript 文件路径
+  "exclude": ["node_modules"] // 排除不需要编译的目录
+}
