@@ -1,5 +1,7 @@
 import express from 'express';
 import AppDataSource from './config/data-source';
+import { errorHandler } from './middlewares/error-handler.middleware';
+import AuthRoutes from './routes/auth.routes'
 
 const app = express();
 
@@ -16,5 +18,8 @@ AppDataSource.initialize()
     });
 
 // 路由
+app.use('/api/auth', AuthRoutes);
+
+app.use(errorHandler);
 
 export default app;

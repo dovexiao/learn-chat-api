@@ -1,19 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class NoteDraft {
+export class NoteEntity {
     @PrimaryGeneratedColumn()
-    draftId!: number;
+    noteId!: number;
+
+    @Column()
+    noteLibraryId!: number;
 
     @Column()
     creatorId!: number;
 
-    @Column()
-    noteId!: number;
-
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createTime!: Date;
 
-    @Column({ type: 'text' })
-    draftContent!: string;
+    @Column()
+    isDeleted!: boolean;
 }

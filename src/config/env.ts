@@ -24,6 +24,13 @@ const envSchema = z.object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     PORT: z.coerce.number().int().positive().default(3000),
 
+    // JWT配置
+    JWT_SECRET: z.string().min(1).default('e4e98529463a67338b00e94f1e6058ed8e0f7086a57f407dc5ab62def69e6928'),
+    JWT_REFRESH_SECRET: z.string().min(1).default('d9eaccea2c4c7ef1fbc40cfa48beea42ffe2f112edfbfc0058fdb41e66c400b3\n'),
+
+    // 缓存配置
+    CACHE_TTL: z.coerce.number().int().positive().default(3600),
+
     // 可选配置示例（未来扩展用）
     // JWT_SECRET: z.string().min(32).optional(),
     // REDIS_URL: z.string().url().optional(),
@@ -32,7 +39,7 @@ const envSchema = z.object({
 // 校验并格式化配置
 const parseResult = envSchema.safeParse(process.env);
 
-if (parseResult.success === false) {
+if (!parseResult.success) {
     console.error(
         '❌ 环境变量校验失败:',
         parseResult.error.flatten().fieldErrors
@@ -60,4 +67,15 @@ export const appConfig = {
     isDev: env.NODE_ENV === 'development',
     isProd: env.NODE_ENV === 'production',
     port: env.PORT,
+};
+
+// 新增导出的JWT配置组
+export const jwtConfig = {
+    secret: env.JWT_SECRET,
+    refreshSecret: env.JWT_REFRESH_SECRET,
+};
+
+// 新增导出的缓存配置
+export const cacheConfig = {
+    ttl: env.CACHE_TTL,
 };

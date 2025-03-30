@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, Column } from 'typeorm';
 
 @Entity()
-export class ChatSpace {
+export class ChatSpaceEntity {
     @PrimaryColumn()
     chatSpaceId!: number;
 

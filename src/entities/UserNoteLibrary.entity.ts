@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, Column } from 'typeorm';
 
 @Entity()
-export class UserNoteLibrary {
+export class UserNoteLibraryEntity {
     @PrimaryColumn()
     userId!: number;
 

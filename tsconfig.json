@@ -15,7 +15,7 @@
     "esModuleInterop": true, // 使 CommonJS 和 ES 模块之间的互操作性更好
     "skipLibCheck": true, // 跳过类型声明文件的检查，提高编译速度，可根据需要关闭
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["node_modules/@types"], // 指定类型声明文件的根目录
+    "typeRoots": ["node_modules/@types", "./src/types"], // 指定类型声明文件的根目录
     "types": [
       "express", // 在这里添加你使用的库的类型声明包，比如 express，还可以添加其他的如 mysql2 等
     ]

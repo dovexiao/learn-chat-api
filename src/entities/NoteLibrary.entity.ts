@@ -1,11 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Note {
+export class NoteLibraryEntity {
     @PrimaryGeneratedColumn()
-    noteId!: number;
-
-    @Column()
     noteLibraryId!: number;
 
     @Column()
@@ -13,6 +10,12 @@ export class Note {
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createTime!: Date;
+
+    @Column()
+    noteLibraryName!: string;
+
+    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    lastUpdateTime!: Date;
 
     @Column()
     isDeleted!: boolean;
