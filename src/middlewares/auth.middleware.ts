@@ -29,7 +29,7 @@ export const authMiddleware = async (
         if (!user) {
             const newUser = await userRepository.findByUserId(decoded.userId);
             if (!newUser) {
-                throw new AuthenticationError('用户不存在');
+                return next(new AuthenticationError('用户不存在'));
             }
             cacheService.cacheUser(newUser);
             user = newUser;
