@@ -11,9 +11,9 @@ const typeormConfig: DataSourceOptions = {
     database: dbConfig.database,
     synchronize: appConfig.isDev && !dbConfig.forceSync,
     logging: appConfig.isDev,
-    entities: [`${__dirname}/../entities/**/*.entity.{js,ts}`],
-    migrations: [`${__dirname}/../migrations/**/*.migration.{js,ts}`],
-    subscribers: [`${__dirname}/../subscribers/**/*.subscriber.{js,ts}`],
+    entities: [`${__dirname}/../entities/*.entity.{js,ts}`],
+    migrations: [`${__dirname}/../migrations/*.migration.{js,ts}`],
+    subscribers: [`${__dirname}/../subscribers/*.subscriber.{js,ts}`],
     extra: {
         connectionLimit: dbConfig.poolSize,
         idleTimeout: dbConfig.poolIdleTimeout,

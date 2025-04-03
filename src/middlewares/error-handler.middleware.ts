@@ -6,7 +6,7 @@ import {
     NotFoundError,
     ValidationError
 } from '../utils/errors';
-import {appConfig} from '../config/env';
+import { appConfig } from '../config/env';
 import { logger } from '../utils/logger';
 
 export const errorHandler = (
@@ -27,9 +27,8 @@ export const errorHandler = (
         }
     };
 
-    // 已知错误类型处理
     if (err instanceof HttpException) {
-        logger.warn('业务异常处理', {
+        logger.warn('业务异常处理 | Business exception handled', {
             ...logMetadata,
             statusCode: err.statusCode,
             errorType: err.constructor.name
@@ -38,32 +37,27 @@ export const errorHandler = (
         res.status(err.statusCode).json({
             success: false,
             message: err.message,
+            error: { details: err.details },
+            timestamp: new Date().toISOString(),
+        });
+    } else {
+        logger.error('捕获未知异常 | Unknown exception', {
+            ...logMetadata,
+            statusCode: 500,
+            errorType: 'UnknownError'
+        });
+
+        res.status(500).json({
+            success: false,
+            message: '服务器内部错误 | Internal server error',
             error: {
-                code: err.statusCode,
-                details: err.details,
-                // 开发环境显示错误堆栈
-                stack: appConfig.isDev ? err.stack : undefined
+                // code: 500,
+                // 生产环境隐藏技术细节
+                // details: appConfig.isDev ? { stack: err.stack } : {}
             },
             timestamp: new Date().toISOString(),
         });
     }
 
-    logger.error('未捕获异常', {
-        ...logMetadata,
-        statusCode: 500,
-        errorType: 'UnhandledError'
-    });
-
-    // 未知错误处理
-    console.error('未捕获错误:', err);
-    res.status(500).json({
-        success: false,
-        message: '服务器内部错误',
-        error: {
-            code: 500,
-            // 生产环境隐藏技术细节
-            details: appConfig.isDev ? { stack: err.stack } : {}
-        },
-        timestamp: new Date().toISOString(),
-    });
+    next();
 };

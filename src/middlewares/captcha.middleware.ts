@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { ValidationError } from '../utils/errors';
-import { cacheService } from '../services/CacheService';
+import { cacheService } from '../services/cache.service';
 
-export const captchaMiddleware = async (
+export const captchaMiddleware = (
     req: Request,
     res: Response,
     next: NextFunction

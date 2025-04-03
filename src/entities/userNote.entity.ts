@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {Entity, Column, ObjectLiteral, PrimaryColumn} from 'typeorm';
 
 @Entity()
-export class UserNoteEntity {
-    @PrimaryGeneratedColumn()
+export class UserNoteEntity implements ObjectLiteral {
+    @PrimaryColumn()
     noteId!: number;
 
     @Column()

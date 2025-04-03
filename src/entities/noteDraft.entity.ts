@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, ObjectLiteral} from 'typeorm';
 
 @Entity()
-export class NoteDraftEntity {
+export class NoteDraftEntity implements ObjectLiteral {
     @PrimaryGeneratedColumn()
     draftId!: number;
 

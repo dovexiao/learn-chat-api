@@ -5,11 +5,12 @@ import {
     DeepPartial,
     SaveOptions,
     FindOptionsWhere,
-    UpdateResult
+    UpdateResult,
+    ObjectLiteral
 } from 'typeorm';
 import AppDataSource from '../config/data-source';
 
-export class BaseRepository<T> {
+export class BaseRepository<T extends ObjectLiteral> {
     constructor(private entity: EntityTarget<T>) {}
 
     // 基础查询

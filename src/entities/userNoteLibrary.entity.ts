@@ -1,7 +1,7 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import {Entity, PrimaryColumn, Column, ObjectLiteral} from 'typeorm';
 
 @Entity()
-export class UserNoteLibraryEntity {
+export class UserNoteLibraryEntity implements ObjectLiteral {
     @PrimaryColumn()
     userId!: number;
 
@@ -21,4 +21,8 @@ export class UserNoteLibraryEntity {
         default: 1
     })
     permission!: 0 | 1 | 2;
+
+    // 移出共建者的标记
+    @Column()
+    isDeleted!: boolean;
 }

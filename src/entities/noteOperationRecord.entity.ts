@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, ObjectLiteral} from 'typeorm';
 
 @Entity()
-export class NoteOperationRecordEntity {
+export class NoteOperationRecordEntity implements ObjectLiteral {
     @PrimaryGeneratedColumn()
     recordId!: number;
 

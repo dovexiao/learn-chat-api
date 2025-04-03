@@ -1,6 +1,6 @@
-import { BaseRepository } from './BaseRepository';
-import { UserEntity } from '../entities/User.entity';
-import { EntityManager } from 'typeorm';
+import { BaseRepository } from './base.repository';
+import { UserEntity } from '../entities/user.entity';
+import {EntityManager} from 'typeorm';
 import {USER_PERMISSIONS} from "../config/constants";
 
 export class UserRepository extends BaseRepository<UserEntity> {

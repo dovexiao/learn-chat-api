@@ -1,5 +1,5 @@
 import NodeCache from 'node-cache';
-import {UserEntity} from "../entities/User.entity";
+import {UserEntity} from "../entities/user.entity";
 import {cacheConfig} from "../config/env";
 
 class CacheService {
