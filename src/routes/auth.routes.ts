@@ -1,19 +1,20 @@
 import express from "express";
-import {validateLoginParams, validateRegisterParams} from "../middlewares/validateParams.middleware";
-import {captchaMiddleware} from "../middlewares/captcha.middleware";
-import {authController} from "../controllers/AuthController";
+import { validate } from '../middlewares/validate.middleware';
+import { captchaMiddleware } from "../middlewares/captcha.middleware";
+import { authController } from "../controllers/auth.controller";
+import { loginSchema, registerSchema } from "../utils/validators/auth.validator";
 
 const router = express.Router();
 
 router.post('/register',
     captchaMiddleware,
-    validateRegisterParams,
+    validate(registerSchema),
     authController.register
 );
 
 router.post('/login',
     captchaMiddleware,
-    validateLoginParams,
+    validate(loginSchema),
     authController.login
 );
 

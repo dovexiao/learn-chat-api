@@ -1,7 +1,7 @@
 import svgCaptcha from 'svg-captcha';
-import {cacheService} from "./CacheService";
+import {cacheService} from "./cache.service";
 import bcrypt from 'bcrypt';
-import {UserRepository} from "../repositories/UserRepository";
+import {UserRepository} from "../repositories/user.repository";
 import {generateTokens} from "../utils/token";
 import {ConflictError, NotFoundError, AuthenticationError} from "../utils/errors";
 import jwt from "jsonwebtoken";

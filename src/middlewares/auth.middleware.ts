@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import {cacheService} from "../services/CacheService";
-import {UserRepository} from "../repositories/UserRepository";
+import {cacheService} from "../services/cache.service";
+import {UserRepository} from "../repositories/user.repository";
 import {AuthenticationError} from "../utils/errors";
 import {jwtConfig} from "../config/env";
 
-export const checkLoginStatus = async (
+export const authMiddleware = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -35,9 +35,8 @@ export const checkLoginStatus = async (
             user = newUser;
         }
         // 挂载用户到请求
-        req.user = {
-            userId: user.userId,
-        };
+        // @ts-ignore
+        req.user = user;
         next();
     } catch (error) {
         // Token过期处理
