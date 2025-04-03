@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import { UserNoteLibraryRepository } from '../../repositories/noteRepos';
+import { UserNoteLibraryRepository } from '../../repositories/noteRepositories';
 import {AuthenticationError, PermissionError} from "../../utils/errors";
 import {logger} from "../../utils/logger";
 

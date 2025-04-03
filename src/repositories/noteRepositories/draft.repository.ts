@@ -1,6 +1,6 @@
 import {BaseRepository} from "../base.repository";
 import {EntityManager} from "typeorm";
-import {NoteDraftEntity} from "../../entities/note/noteDraft.entity";
+import {NoteDraftEntity} from "../../entities/noteEntities";
 
 export class DraftRepository extends BaseRepository<NoteDraftEntity> {
     constructor() {

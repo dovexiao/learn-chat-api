@@ -1,5 +1,5 @@
 import {BaseRepository} from "../base.repository";
-import {UserNoteLibraryEntity} from "../../entities/note/userNoteLibrary.entity";
+import {UserNoteLibraryEntity} from "../../entities/noteEntities";
 import {EntityManager} from "typeorm";
 
 export class UserNoteLibraryRepository  extends BaseRepository<UserNoteLibraryEntity> {

@@ -1,4 +1,4 @@
-import {NoteOperationRecordEntity} from "../../entities/note/noteOperationRecord.entity";
+import {NoteOperationRecordEntity} from "../../entities/noteEntities";
 import {BaseRepository} from "../base.repository";
 import {EntityManager} from "typeorm";
 

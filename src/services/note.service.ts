@@ -8,10 +8,9 @@ import {
     OperationRepository,
     UserNoteLibraryRepository,
     UserNoteRepository,
-} from "../repositories/noteRepos";
+} from "../repositories/noteRepositories";
 import {UserRepository} from "../repositories/user.repository";
-import {UserNoteEntity} from "../entities/note/userNote.entity";
-import {UserNoteLibraryEntity} from "../entities/note/userNoteLibrary.entity";
+import {UserNoteEntity, UserNoteLibraryEntity} from "../entities/noteEntities";
 
 export class NoteService {
     private noteRepository = new NoteRepository();

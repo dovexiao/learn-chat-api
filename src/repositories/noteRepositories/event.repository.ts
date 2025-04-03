@@ -1,6 +1,6 @@
 import {EntityManager} from "typeorm";
 import {BaseRepository} from "../base.repository";
-import {NoteUpdateEventEntity} from "../../entities/note/noteUpdateEvent.entity";
+import {NoteUpdateEventEntity} from "../../entities/noteEntities";
 
 export class EventRepository extends BaseRepository<NoteUpdateEventEntity> {
     constructor() {
