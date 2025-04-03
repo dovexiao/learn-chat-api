@@ -10,8 +10,8 @@ import {
     UserNoteRepository,
 } from "../repositories/noteRepos";
 import {UserRepository} from "../repositories/user.repository";
-import {UserNoteEntity} from "../entities/userNote.entity";
-import {UserNoteLibraryEntity} from "../entities/userNoteLibrary.entity";
+import {UserNoteEntity} from "../entities/note/userNote.entity";
+import {UserNoteLibraryEntity} from "../entities/note/userNoteLibrary.entity";
 
 export class NoteService {
     private noteRepository = new NoteRepository();
