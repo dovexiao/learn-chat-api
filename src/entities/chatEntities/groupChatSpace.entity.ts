@@ -1,4 +1,5 @@
 import {Entity, Column, CreateDateColumn, ObjectLiteral, PrimaryColumn} from 'typeorm';
+import {GROUP_MEMBER_ROLE} from "../../config/constants";
 
 @Entity()
 export class GroupChatSpaceEntity implements ObjectLiteral {
@@ -19,12 +20,8 @@ export class GroupChatSpaceEntity implements ObjectLiteral {
 
     @Column({
         type: 'enum',
-        enum: {
-            'ADMIN': 0,
-            'DEPUTY_ADMIN': 1,
-            'ORDINARY_MEMBER' : 2
-        },
-        default: 2
+        enum: GROUP_MEMBER_ROLE,
+        default: GROUP_MEMBER_ROLE.ORDINARY_MEMBER
     })
     role!: 0 | 1 | 2;
 

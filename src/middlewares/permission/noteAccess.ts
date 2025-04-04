@@ -16,14 +16,14 @@ export const checkNoteOwnership = async (
         throw new AuthenticationError('用户不存在');
     }
     // 验证用户是否拥有该笔记
-    const exists = await userNoteRepo.exists(userId, noteId);
+    const exists = await userNoteRepo.existsNote(userId, noteId);
     if (!exists) {
         throw new PermissionError('需要笔记操作权限');
     }
     logger.info(`权限验证通过`, {
         userId: userId,
         middleware: 'checkLibraryAdmin',
-        resource: req.params.libraryId
+        resource: req.params.noteId || req.body.noteId
     });
     next();
 };

@@ -1,35 +1,23 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ObjectLiteral} from 'typeorm';
+import {MESSAGE_CONTENT_TYPE, MESSAGE_STATUS} from "../../config/constants";
 
 @Entity()
-export class MessageEntity implements ObjectLiteral {
+export class ChatMessageEntity implements ObjectLiteral {
     @PrimaryGeneratedColumn()
     messageId!: number;
 
     @Column()
     chatSpaceId!: number;
 
-    @Column({
-        type: 'enum',
-        enum: {
-            'GROUP': 0,
-            'DIRECT': 1
-        },
-        default: 0
-    })
-    chatSpaceType!: 0 | 1;
-
     @Column('text')
     content!: string;
 
     @Column({
         type: 'enum',
-        enum: {
-            'TEXT': 0,
-            'NOTE_SHARE': 1
-        },
-        default: 0
+        enum: MESSAGE_CONTENT_TYPE,
+        default: MESSAGE_CONTENT_TYPE.TEXT
     })
-    contentType!: 0 | 1;
+    contentType!: 0 | 1 | 2;
 
     @Column()
     createUserId!: number;
@@ -39,15 +27,10 @@ export class MessageEntity implements ObjectLiteral {
 
     @Column({
         type: 'enum',
-        enum: {
-            'Sent': 0,
-            'NOT_SENT': 1,
-            'UNREAD': 2,
-            'READ': 3,
-        },
-        default: 0
+        enum: MESSAGE_STATUS,
+        default: MESSAGE_STATUS.SENT
     })
-    status!: 0 | 1 | 2 | 3;
+    status!:  0 | 1 | 2 | 3;
 
     @Column({ default: false })
     isDeleted!: boolean;

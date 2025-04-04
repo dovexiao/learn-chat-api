@@ -23,7 +23,7 @@ export const checkLibraryAdmin = async (
     logger.info(`权限验证通过`, {
         userId: userId,
         middleware: 'checkLibraryAdmin',
-        resource: req.params.libraryId
+        resource: req.params.noteLibraryId
     });
     next();
 };

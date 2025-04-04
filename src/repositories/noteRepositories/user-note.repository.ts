@@ -22,7 +22,7 @@ export class UserNoteRepository extends BaseRepository<UserNoteEntity> {
         );
     }
 
-    async exists(userId: number, noteId: number) {
+    async existsNote(userId: number, noteId: number) {
         return await this.findOne({userId, noteId});
     }
 }

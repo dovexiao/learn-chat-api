@@ -6,7 +6,7 @@ export class ChatSpaceEntity implements ObjectLiteral {
     chatSpaceId!: number;
 
     @Column()
-    createUserId!: string;
+    createUserId!: number;
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createTime!: Date;
