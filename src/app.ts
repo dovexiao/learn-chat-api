@@ -3,6 +3,7 @@ import AppDataSource from './config/data-source';
 import { errorHandler } from './middlewares/error-handler.middleware';
 import AuthRoutes from './routes/auth.routes';
 import NoteRoutes from './routes/note.routes';
+import ChatRoutes from './routes/chat.routes';
 
 const app = express();
 
@@ -21,6 +22,7 @@ AppDataSource.initialize()
 // 路由
 app.use('/api/auth', AuthRoutes);
 app.use('/api/note', NoteRoutes);
+app.use('/api/chat', ChatRoutes);
 
 app.use(errorHandler);
 
