@@ -2,13 +2,20 @@ import winston from 'winston';
 import { StreamOptions } from 'morgan';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
+const customFormat = winston.format.printf(({ timestamp, level, message, ...meta }) => {
+    let logMessage = `${timestamp} [${level.toUpperCase()}]: ${message}`;
+    if (Object.keys(meta).length > 0) {
+        // 如果有 meta 数据，将其以 JSON 格式添加到下一行
+        logMessage += `\n${JSON.stringify(meta, null, 2)}`;
+    }
+    return logMessage;
+});
+
 export const logger = winston.createLogger({
     level: 'info', // 日志级别
     format: winston.format.combine(
         winston.format.timestamp(), // 添加时间戳
-        winston.format.printf(({ timestamp, level, message }) => {
-            return `${timestamp} [${level.toUpperCase()}]: ${message}`;
-        })
+        customFormat
     ),
     transports: [
         // 输出到控制台
