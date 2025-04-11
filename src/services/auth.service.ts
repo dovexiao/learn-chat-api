@@ -82,7 +82,7 @@ export class AuthService {
             return generateTokens({ userId: user.userId, username: user.username });
         } catch (error) {
             if (error instanceof jwt.TokenExpiredError) {
-                throw new AuthenticationError('登录已过期', { code: 'REFRESH_EXPIRED' });
+                throw new AuthenticationError('登录已过期', { code: 'EXPIRED_REFRESH' });
             }
             throw new AuthenticationError('无效的刷新凭证');
         }
