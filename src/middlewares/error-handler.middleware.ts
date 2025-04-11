@@ -14,6 +14,8 @@ export const errorHandler = (
     const logMetadata = {
         path: req.path,
         method: req.method,
+        params: req.params,
+        body: req.body,
         clientIp: req.ip,
         userId: (req as any).user?.userId || 'anonymous',
         error: {
