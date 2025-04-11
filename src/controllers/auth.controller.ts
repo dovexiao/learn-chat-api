@@ -10,7 +10,7 @@ export class AuthController {
 
         try {
             const captcha = this.authService.generateCaptcha();
-            logger.info('验证码生成成功 | Captcha generated successfully', {
+            logger.info(`验证码生成成功 ${captcha.key} | Captcha generated successfully`, {
                 captchaId: captcha.key,
             });
             // 设置响应头
@@ -18,7 +18,7 @@ export class AuthController {
                 success: true,
                 data: {
                     image: captcha.image,
-                    captchaId: captcha.key // 返回验证码标识符
+                    key: captcha.key // 返回验证码标识符
                 },
                 timestamp: new Date().toISOString(),
             });
