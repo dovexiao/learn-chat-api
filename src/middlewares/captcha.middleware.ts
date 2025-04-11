@@ -7,17 +7,17 @@ export const captchaMiddleware = (
     res: Response,
     next: NextFunction
 ) => {
-    const { captcha } = req.body;
+    const { captchaKey, captchaText } = req.body;
 
-    if (!captcha) {
+    if (!captchaText) {
         throw new ValidationError('验证码不能为空');
     }
 
-    if (!cacheService.verifyCaptcha(captcha)) {
+    if (!cacheService.verifyCaptcha(captchaKey)) {
         throw new ValidationError('验证码错误或已过期');
     }
 
     // 验证成功后清除
-    cacheService.deleteCaptcha(captcha);
+    cacheService.deleteCaptcha(captchaKey);
     next();
 };

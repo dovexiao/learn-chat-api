@@ -21,13 +21,13 @@ class CacheService {
     }
 
     // 验证图片验证码
-    verifyCaptcha(captcha: string) {
-        return this.getCachedData(`captcha_${captcha}`);
+    verifyCaptcha(captchaKey: string) {
+        return this.getCachedData(captchaKey);
     }
 
     // 删除图片验证码
-    deleteCaptcha(captcha: string) {
-        this.deleteCachedData(`captcha_${captcha}`);
+    deleteCaptcha(captchaKey: string) {
+        this.deleteCachedData(captchaKey);
     }
 
     // 缓存用户信息（1小时）

@@ -6,6 +6,7 @@ import {generateTokens} from "../utils/token";
 import {ConflictError, NotFoundError, AuthenticationError} from "../utils/errors";
 import jwt from "jsonwebtoken";
 import {jwtConfig} from "../config/env";
+import { v4 as uuidv4 } from 'uuid';
 
 export class AuthService {
     private userRepository = new UserRepository();
@@ -19,12 +20,14 @@ export class AuthService {
                 color: true
             });
 
+            const captchaId = uuidv4();
+
             // 缓存验证码答案（5分钟有效）
-            cacheService.cacheData(`captcha_${captcha.text}`, true, 300);
+            cacheService.cacheData(captchaId, captcha.text, 300);
 
             return {
                 image: captcha.data,
-                text: captcha.text
+                key: captchaId
             };
         } catch(error) {
             throw new Error('验证码生成失败');

@@ -11,14 +11,14 @@ export class AuthController {
         try {
             const captcha = this.authService.generateCaptcha();
             logger.info('验证码生成成功 | Captcha generated successfully', {
-                captchaId: captcha.text
+                captchaId: captcha.key,
             });
             // 设置响应头
             res.type('svg').status(200).json({
                 success: true,
                 data: {
                     image: captcha.image,
-                    captchaId: captcha.text // 返回验证码标识符
+                    captchaId: captcha.key // 返回验证码标识符
                 },
                 timestamp: new Date().toISOString(),
             });
