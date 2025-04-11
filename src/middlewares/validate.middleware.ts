@@ -1,27 +1,39 @@
 import { Request, Response, NextFunction } from 'express';
 import { ValidationError } from '../utils/errors';
-import {AnySchema} from "joi";
+import { AnySchema } from "joi";
 
-export const validate = (schema: AnySchema) => {
+type ValidateTarget = 'body' | 'params' | 'query' | ('body' | 'params' | 'query')[];
+
+export const validate = (schema: AnySchema, target: ValidateTarget = 'body') => {
     return (req: Request, res: Response, next: NextFunction) => {
-        // 同时验证 body、params 和 query
-        const { error } = schema.validate({
-            body: req.body,
-            params: req.params,
-            query: req.query
-        }, {
-            abortEarly: false, // 返回所有验证错误
-            allowUnknown: true, // 允许未定义的字段
-            stripUnknown: true // 移除未定义的字段
-        });
+        const targets = Array.isArray(target) ? target : [target];
+        const errorBags: {[key: string]: string[]} = {};
 
-        if (error) {
-            const errorMessages = error.details.map(detail => detail.message).join(', ');
-            throw new ValidationError(errorMessages);
+        // 初始化错误收集对象
+        targets.forEach(t => { errorBags[t] = []; });
+
+        // 检查指定目标
+        for (const t of targets) {
+            const { error } = schema.validate(req[t], {
+                abortEarly: false,
+                allowUnknown: true,
+                stripUnknown: true
+            });
+
+            if (!error) {
+                // 任意一个验证通过就直接放行
+                return next();
+            }
+
+            errorBags[t] = error.details.map(d => d.message);
         }
 
-        next();
+        // 如果全部未通过，构造友好的错误信息
+        const errorMessages = Object.entries(errorBags)
+            .filter(([_, messages]) => messages.length > 0)
+            .map(([key, messages]) => `${key} errors: ${messages.join(', ')}`)
+            .join('; ');
+
+        throw new ValidationError(errorMessages || 'Validation failed');
     };
 };
-
-
