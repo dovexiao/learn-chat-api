@@ -9,6 +9,7 @@ interface TokenPayload {
 interface Tokens {
     accessToken: string;
     refreshToken: string;
+    user: TokenPayload;
 }
 
 
@@ -25,5 +26,5 @@ export const generateTokens = (user: TokenPayload): Tokens => {
         { expiresIn: '7d' }
     );
 
-    return { accessToken, refreshToken };
+    return { user, accessToken, refreshToken };
 };

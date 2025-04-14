@@ -32,6 +32,7 @@ class CacheService {
 
     // 缓存用户信息（1小时）
     cacheUser(user: UserEntity) {
+        this.deleteCachedData(`user_${user.userId}`);
         this.cache.set(`user_${user.userId}`, user);
     }
 

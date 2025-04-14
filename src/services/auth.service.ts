@@ -80,7 +80,7 @@ export class AuthService {
             if (!user) {
                 throw new AuthenticationError('用户不存在');
             }
-
+            cacheService.cacheUser(user);
             // 生成新Token
             return generateTokens({ userId: user.userId, username: user.username });
         } catch (error) {

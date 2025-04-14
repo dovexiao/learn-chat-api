@@ -61,6 +61,7 @@ export class AuthController {
             res.status(200).json({
                 success: true,
                 data: {
+                    user: tokens.user,
                     accessToken: tokens.accessToken,
                     refreshToken: tokens.refreshToken,
                     expiresIn: 900,
