@@ -78,16 +78,16 @@ export class AuthService {
             // 获取用户信息
             const user = await this.userRepository.findByUserId(decoded.userId);
             if (!user) {
-                throw new AuthenticationError('用户不存在');
+                throw new AuthenticationError('用户不存在', { code: 'INVALID_TOKEN' });
             }
             cacheService.cacheUser(user);
             // 生成新Token
             return generateTokens({ userId: user.userId, username: user.username });
-        } catch (error) {
+        } catch (error: any) {
             if (error instanceof jwt.TokenExpiredError) {
                 throw new AuthenticationError('登录已过期', { code: 'EXPIRED_REFRESH' });
             }
-            throw new AuthenticationError('无效的刷新凭证');
+            throw error;
         }
     }
 }

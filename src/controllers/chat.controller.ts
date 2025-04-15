@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { ChatService } from '../services/chat.service';
 import { logger } from '../utils/logger';
 
@@ -6,7 +6,7 @@ export class ChatController {
     private chatService = new ChatService();
 
     // 获取用户聊天空间列表（好友+群聊）
-    getUserChatSpaces = async (req: Request, res: Response) => {
+    getUserChatSpaces = async (req: Request, res: Response, next: NextFunction) => {
         const userId = parseInt(req.params.userId);
         logger.info('获取用户聊天空间 | Fetching user chat spaces', { userId });
         try {
@@ -17,12 +17,12 @@ export class ChatController {
             });
             res.status(200).json({ success: true, data: chatSpaces });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 创建群聊
-    createGroupChatSpace = async (req: Request, res: Response) => {
+    createGroupChatSpace = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, chatSpaceName, memberIds } = req.body;
         logger.info('创建群聊 | Creating group chat space', {
             userId,
@@ -40,12 +40,12 @@ export class ChatController {
                 message: '群聊创建成功 | Group created'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 分享群名片
-    shareGroupChatSpaceCard = async (req: Request, res: Response) => {
+    shareGroupChatSpaceCard = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, contactUserId, chatSpaceId, sharedChatSpaceId } = req.body;
         logger.info('分享群名片 | Sharing group card', {
             userId,
@@ -63,12 +63,12 @@ export class ChatController {
                 message: '群名片已发送 | Group card sent'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 加入群聊
-    joinGroupChatSpace = async (req: Request, res: Response) => {
+    joinGroupChatSpace = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, chatSpaceId } = req.body;
         logger.info('加入群聊 | Joining group chat', {
             userId,
@@ -85,12 +85,12 @@ export class ChatController {
                 message: '已加入群聊 | Joined group'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 创建私聊（同意好友请求）
-    joinDirectChatSpace = async (req: Request, res: Response) => {
+    joinDirectChatSpace = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, createUserId, contactUserId } = req.body;
         logger.info('创建私聊 | Creating direct chat', {
             userId,
@@ -107,12 +107,12 @@ export class ChatController {
                 message: '私聊已建立 | Direct chat created'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 退出群聊
-    deleteGroupChatSpace = async (req: Request, res: Response) => {
+    deleteGroupChatSpace = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, chatSpaceId } = req.body;
         logger.info('退出群聊 | Leaving group chat', {
             userId,
@@ -129,12 +129,12 @@ export class ChatController {
                 message: '已退出群聊 | Left group'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 删除私聊（删除好友）
-    deleteDirectChatSpace = async (req: Request, res: Response) => {
+    deleteDirectChatSpace = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, chatSpaceId } = req.body;
         logger.info('删除私聊 | Deleting direct chat', {
             userId,
@@ -151,12 +151,12 @@ export class ChatController {
                 message: '私聊已删除 | Direct chat deleted'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 发送消息
-    createMessage = async (req: Request, res: Response) => {
+    createMessage = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, chatSpaceId, content } = req.body;
         logger.info('发送消息 | Sending message', {
             userId,
@@ -174,12 +174,12 @@ export class ChatController {
                 message: '消息已发送 | Message sent'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 更新消息状态（如已读/未读）
-    updateMessageStatus = async (req: Request, res: Response) => {
+    updateMessageStatus = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, messageId, status } = req.body;
         logger.info('更新消息状态 | Updating message status', {
             userId,
@@ -197,12 +197,12 @@ export class ChatController {
                 message: '状态已更新 | Status updated'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 撤回消息
-    deleteMessage = async (req: Request, res: Response) => {
+    deleteMessage = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, messageId } = req.body;
         logger.info('撤回消息 | Deleting message', {
             userId,
@@ -219,7 +219,7 @@ export class ChatController {
                 message: '消息已撤回 | Message deleted'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 }

@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import {NextFunction, Request, Response} from 'express';
 import { AuthService } from '../services/auth.service';
 import { logger } from '../utils/logger';
 
 export class AuthController {
     private authService: AuthService = new AuthService();
 
-    getCaptcha = async (req: Request, res: Response) => {
+    getCaptcha = async (req: Request, res: Response, next: NextFunction) => {
         logger.info('生成验证码 | Generating captcha');
 
         try {
@@ -23,11 +23,11 @@ export class AuthController {
                 timestamp: new Date().toISOString(),
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     }
 
-    register = async (req: Request, res: Response) => {
+    register = async (req: Request, res: Response, next: NextFunction) => {
         const { username, password } = req.body;
         logger.info('用户注册请求 | User registration request', { username });
 
@@ -44,11 +44,11 @@ export class AuthController {
                 timestamp: new Date().toISOString(),
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     }
 
-    login = async (req: Request, res: Response) => {
+    login = async (req: Request, res: Response, next: NextFunction) => {
         const { username, password } = req.body;
         logger.info('用户登录尝试 | User login attempt', { username });
 
@@ -69,11 +69,11 @@ export class AuthController {
                 }
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     }
 
-    refreshToken = async (req: Request, res: Response) => {
+    refreshToken = async (req: Request, res: Response, next: NextFunction) => {
         const { refreshToken } = req.body;
         logger.info('刷新Token请求 | Refresh token request');
 
@@ -88,7 +88,7 @@ export class AuthController {
                 timestamp: new Date().toISOString(),
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     }
 }

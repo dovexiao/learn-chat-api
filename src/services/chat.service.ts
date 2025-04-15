@@ -7,7 +7,7 @@ import {NotFoundError} from "../utils/errors";
 import {MESSAGE_STATUS} from "../config/constants";
 
 export class ChatService {
-    private chatSpaceRepo = new chatRepositories.ChatSpaceRepository
+    private chatSpaceRepo = new chatRepositories.ChatSpaceRepository();
     private directChatSpaceRepo = new chatRepositories.DirectChatSpaceRepository();
     private groupChatSpaceRepo = new chatRepositories.GroupChatSpaceRepository();
     private MessageRepo = new chatRepositories.MessageRepository();

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { NoteService } from '../services/note.service';
 import { logger } from '../utils/logger';
 
@@ -6,7 +6,7 @@ export class NoteController {
     private noteService = new NoteService();
 
     // 获取用户笔记
-    getUserNotes = async (req: Request, res: Response) => {
+    getUserNotes = async (req: Request, res: Response, next: NextFunction) => {
         const userId = parseInt(req.params.userId);
         logger.info('获取用户笔记 | Fetching user notes', { userId });
         try {
@@ -17,12 +17,12 @@ export class NoteController {
             });
             res.status(200).json({ success: true, data: notes });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 创建用户笔记
-    createUserNote = async (req: Request, res: Response) => {
+    createUserNote = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, noteLibraryId, remarks = '', tags = '' } = req.body;
         logger.info('创建用户笔记 | Creating user note', {
             userId,
@@ -39,12 +39,12 @@ export class NoteController {
                 message: '笔记创建成功 | Note created'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 修改用户笔记备注
-    updateNoteRemarks = async (req: Request, res: Response) => {
+    updateNoteRemarks = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, noteId, newRemarks } = req.body;
         logger.info('更新笔记备注 | Updating note remarks', {
             userId,
@@ -61,12 +61,12 @@ export class NoteController {
                 message: '备注更新成功 | Remarks updated'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 修改用户笔记标签
-    updateNoteTags = async (req: Request, res: Response) => {
+    updateNoteTags = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, noteId, newTags } = req.body;
         logger.info('更新笔记标签 | Updating note tags', {
             userId,
@@ -83,12 +83,12 @@ export class NoteController {
                 message: '标签更新成功 | Tags updated'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 删除用户笔记
-    deleteUserNote = async (req: Request, res: Response) => {
+    deleteUserNote = async (req: Request, res: Response, next: NextFunction) => {
         const noteId = parseInt(req.query.noteId as string);
         logger.info('删除用户笔记 | Deleting user note', { noteId });
 
@@ -100,12 +100,12 @@ export class NoteController {
                 message: '笔记已删除 | Note deleted'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 保存用户笔记
-    saveUserNote = async (req: Request, res: Response) => {
+    saveUserNote = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, noteId, content, sourceId } = req.body;
         logger.info('保存用户笔记 | Saving user note', {
             userId,
@@ -122,12 +122,12 @@ export class NoteController {
                 message: '笔记保存成功 | Note saved'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 切换用户笔记版本
-    switchNoteVersion = async (req: Request, res: Response) => {
+    switchNoteVersion = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, noteId, newContentId, newSource } = req.body;
         logger.info('切换笔记版本 | Switching note version', {
             userId,
@@ -144,12 +144,12 @@ export class NoteController {
                 message: '版本切换成功 | Version switched'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 获取笔记更新记录
-    getNoteUpdateEvents = async (req: Request, res: Response) => {
+    getNoteUpdateEvents = async (req: Request, res: Response, next: NextFunction) => {
         const noteId = parseInt(req.params.noteId);
         logger.info('获取笔记更新记录 | Fetching note update events', { noteId });
         try {
@@ -160,12 +160,12 @@ export class NoteController {
             });
             res.status(200).json({ success: true, data: events });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 获取笔记操作记录
-    getNoteOperationRecords = async (req: Request, res: Response) => {
+    getNoteOperationRecords = async (req: Request, res: Response, next: NextFunction) => {
         const noteId = parseInt(req.params.noteId);
         const userId = parseInt(req.query.userId as string);
         logger.info('获取笔记操作记录 | Fetching operation records', {
@@ -180,12 +180,12 @@ export class NoteController {
             });
             res.status(200).json({ success: true, data: records });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 获取笔记草稿箱
-    getNoteDraftBox = async (req: Request, res: Response) => {
+    getNoteDraftBox = async (req: Request, res: Response, next: NextFunction) => {
         const noteId = parseInt(req.params.noteId);
         const userId = parseInt(req.query.userId as string);
         logger.info('获取笔记草稿箱 | Fetching note drafts', {
@@ -200,12 +200,12 @@ export class NoteController {
             });
             res.status(200).json({ success: true, data: drafts });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 保存笔记草稿
-    saveNoteDraft = async (req: Request, res: Response) => {
+    saveNoteDraft = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, noteId, draftContent } = req.body;
         logger.info('保存笔记草稿 | Saving note draft', {
             userId,
@@ -222,12 +222,12 @@ export class NoteController {
                 message: '草稿保存成功 | Draft saved'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 获取用户关联的笔记库
-    getUserNoteLibraries = async (req: Request, res: Response) => {
+    getUserNoteLibraries = async (req: Request, res: Response, next: NextFunction) => {
         const userId = parseInt(req.params.userId);
         logger.info('获取用户笔记库 | Fetching user note libraries', { userId });
         try {
@@ -238,12 +238,12 @@ export class NoteController {
             });
             res.status(200).json({ success: true, data: libraries });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 创建笔记库
-    createNoteLibrary = async (req: Request, res: Response) => {
+    createNoteLibrary = async (req: Request, res: Response, next: NextFunction) => {
         const { userId, noteLibraryName } = req.body;
         logger.info('创建笔记库 | Creating note library', {
             userId,
@@ -260,12 +260,12 @@ export class NoteController {
                 message: '笔记库创建成功 | Library created'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 添加笔记库共建者
-    addCollaborators = async (req: Request, res: Response) => {
+    addCollaborators = async (req: Request, res: Response, next: NextFunction) => {
         const { noteLibraryId, collaboratorIds } = req.body;
         logger.info('添加笔记库协作者 | Adding collaborators', {
             noteLibraryId,
@@ -282,12 +282,12 @@ export class NoteController {
                 message: '协作者添加成功 | Collaborators added'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 移除笔记库共建者
-    removeCollaborators = async (req: Request, res: Response) => {
+    removeCollaborators = async (req: Request, res: Response, next: NextFunction) => {
         const { noteLibraryId, removeCollaboratorIds } = req.body;
         logger.info('移除笔记库协作者 | Removing collaborators', {
             noteLibraryId,
@@ -304,12 +304,12 @@ export class NoteController {
                 message: '协作者移除成功 | Collaborators removed'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 重命名笔记库
-    renameNoteLibrary = async (req: Request, res: Response) => {
+    renameNoteLibrary = async (req: Request, res: Response, next: NextFunction) => {
         const { noteLibraryId, newName } = req.body;
         logger.info('重命名笔记库 | Renaming note library', {
             noteLibraryId,
@@ -326,12 +326,12 @@ export class NoteController {
                 message: '笔记库重命名成功 | Library renamed'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 
     // 删除笔记库
-    deleteNoteLibrary = async (req: Request, res: Response) => {
+    deleteNoteLibrary = async (req: Request, res: Response, next: NextFunction) => {
         const noteLibraryId = parseInt(req.query.noteLibraryId as string);
         logger.info('删除笔记库 | Deleting note library', { noteLibraryId });
         try {
@@ -342,7 +342,7 @@ export class NoteController {
                 message: '笔记库已删除 | Library deleted'
             });
         } catch (error) {
-            throw error;
+            next(error);
         }
     };
 }

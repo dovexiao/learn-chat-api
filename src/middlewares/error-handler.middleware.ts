@@ -5,7 +5,7 @@ import {
 import { appConfig } from '../config/env';
 import { logger } from '../utils/logger';
 
-export const errorHandler = (
+export const errorHandler = async (
     err: Error,
     req: Request,
     res: Response,
