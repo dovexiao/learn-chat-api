@@ -1,7 +1,7 @@
 import express from "express";
 import { validate } from '../middlewares/validate.middleware';
 import { captchaMiddleware } from "../middlewares/captcha.middleware";
-import { authController } from "../controllers/auth.controller";
+import authController from "../controllers/auth.controller";
 import { loginSchema, registerSchema, refreshSchema } from "../utils/validators/auth.validator";
 
 const router = express.Router();

@@ -22,7 +22,7 @@ export const checkNoteOwnership = async (
     }
     logger.info(`权限验证通过`, {
         userId: userId,
-        middleware: 'checkLibraryAdmin',
+        middleware: 'checkNoteOwnership',
         resource: req.params.noteId || req.body.noteId
     });
     next();

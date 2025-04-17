@@ -1,5 +1,5 @@
 import express from 'express';
-import { chatController } from '../controllers/chat.controller';
+import chatController from '../controllers/chat.controller';
 import * as chatValidator from '../utils/validators/chat.validator';
 import { validate } from '../middlewares/validate.middleware';
 import { authMiddleware } from '../middlewares/auth.middleware';

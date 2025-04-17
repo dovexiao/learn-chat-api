@@ -24,7 +24,7 @@ export const checkChatSpaceOwnership = async (
     }
     logger.info(`权限验证通过`, {
         userId: userId,
-        middleware: 'checkLibraryAdmin',
+        middleware: 'checkChatSpaceOwnership',
         resource: req.params.chatSpaceId || req.body.chatSpaceId
     });
     next();

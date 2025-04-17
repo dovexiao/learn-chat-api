@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { NoteService } from '../services/note.service';
 import { logger } from '../utils/logger';
 
-export class NoteController {
+class NoteController {
     private noteService = new NoteService();
 
     // 获取用户笔记
@@ -347,4 +347,4 @@ export class NoteController {
     };
 }
 
-export const noteController = new NoteController();
+export default new NoteController();

@@ -19,7 +19,7 @@ export const checkBasicAuth = (
     }
     logger.info(`权限验证通过`, {
         userId: userId,
-        middleware: 'checkLibraryAdmin',
+        middleware: 'checkBasicAuth',
         resource: req.params.libraryId
     });
     next();

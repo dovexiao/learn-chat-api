@@ -1,5 +1,5 @@
 import express from 'express';
-import { noteController } from '../controllers/note.controller';
+import noteController from '../controllers/note.controller';
 import * as noteValidator from '../utils/validators/note.validator';
 import { validate } from '../middlewares/validate.middleware';
 import { authMiddleware } from '../middlewares/auth.middleware';

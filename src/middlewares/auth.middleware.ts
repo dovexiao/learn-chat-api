@@ -41,8 +41,8 @@ export const authMiddleware = async (
     } catch (error) {
         // Token过期处理
         if (error instanceof jwt.TokenExpiredError) {
-            throw new AuthenticationError('登录已过期', { code: 'EXPIRED_TOKEN' });
+            next(new AuthenticationError('登录已过期', { code: 'EXPIRED_TOKEN' }));
         }
-        throw new AuthenticationError('无效的登录状态');
+        next(new AuthenticationError('无效的登录状态'));
     }
 };

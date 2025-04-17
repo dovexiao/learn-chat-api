@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ChatService } from '../services/chat.service';
 import { logger } from '../utils/logger';
 
-export class ChatController {
+class ChatController {
     private chatService = new ChatService();
 
     // 获取用户聊天空间列表（好友+群聊）
@@ -224,4 +224,4 @@ export class ChatController {
     };
 }
 
-export const chatController = new ChatController();
+export default new ChatController();

@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from 'express';
 import { AuthService } from '../services/auth.service';
 import { logger } from '../utils/logger';
 
-export class AuthController {
+class AuthController {
     private authService: AuthService = new AuthService();
 
     getCaptcha = async (req: Request, res: Response, next: NextFunction) => {
@@ -93,4 +93,4 @@ export class AuthController {
     }
 }
 
-export const authController = new AuthController();
+export default new AuthController();
